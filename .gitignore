@@ -1,0 +1,23 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media
+staticfiles/
+
+# Python venv
+venv/
+ENV/
+env/
+
+# Node / JS
+node_modules/
+dist/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
