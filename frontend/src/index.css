@@ -649,9 +649,10 @@ section {
   .compare-container {
     margin-top: 1.5rem;
   }
-  
+
   .compare-table {
-    table-layout: fixed; /* Force columns to stay in proportion */
+    table-layout: fixed;
+    /* Force columns to stay in proportion */
   }
 
   .compare-table th,
@@ -665,7 +666,8 @@ section {
 
   .compare-table th:first-child,
   .compare-table td:first-child {
-    width: 28%; /* Smaller column for 'Feature' */
+    width: 28%;
+    /* Smaller column for 'Feature' */
     text-align: left;
     padding-left: 0.5rem;
     font-weight: 800;
