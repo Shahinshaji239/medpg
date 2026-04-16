@@ -8,6 +8,8 @@
   --background: #ffffff;
   --surface: #ffffff;
   --primary-container: #000000;
+  --car-highlight: #20928c;
+  --car-glow: rgba(109, 11, 43, 0.4);
   --on-primary: #ffffff;
   --text-main: #000000;
   --text-dim: #000000;
@@ -597,19 +599,26 @@ section {
 }
 
 .car-card.highlight {
-  border-color: var(--primary-container);
-  box-shadow: 0 0 25px var(--primary-container);
-  transform: scale(1.02);
-  animation: pulse-glow 1.5s infinite alternate;
+  border-color: var(--car-highlight);
+  box-shadow: 0 0 30px var(--car-glow);
+  transform: scale(1.03);
+  animation: pulse-glow 2s infinite alternate;
+  z-index: 10;
 }
 
 @keyframes pulse-glow {
-  from { box-shadow: 0 0 10px var(--primary-container); }
-  to { box-shadow: 0 0 30px var(--primary-container); }
+  from {
+    box-shadow: 0 0 15px var(--car-glow);
+  }
+
+  to {
+    box-shadow: 0 0 45px var(--car-highlight);
+  }
 }
 
-.car-card.highlight h3, .car-card.highlight .car-price {
-  color: var(--primary-container);
+.car-card.highlight h3,
+.car-card.highlight .car-price {
+  color: var(--car-highlight);
 }
 
 .car-img {

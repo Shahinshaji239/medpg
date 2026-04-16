@@ -93,7 +93,7 @@ function App() {
         if (m2) setCompareModel2(m2.name)
       }
     } else if (action === 'PREFILL_FORM' || action === 'PREFILL') {
-      const modelName = payload.model || payload.car || payload.car_model
+      const modelName = payload.model || payload.car || payload.car_model || payload.car_name || payload.model_name || payload.carName
       const m = findCar(modelName)
       if (m) setBookModel(m.name)
       if (payload.city || payload.location) setBookCity(payload.city || payload.location)

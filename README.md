@@ -1,46 +1,171 @@
 # DriveAI — Aether Motors
 
-**Live URL:** *(You will update this with your Vercel/Render link after deployment)*
+**Live Demo:**
+https://medpg.vercel.app/
 
-## Setup Instructions
-To run this project locally, you will need two terminal windows.
-1. **Backend (Django):** 
-   - `python -m venv venv`
-   - `.\venv\Scripts\activate`
-   - `pip install django djangorestframework django-cors-headers`
-   - `python manage.py migrate`
-   - `python manage.py runserver`
-2. **Frontend (React/Vite):**
-   - `cd frontend`
-   - `npm install`
-   - `npm run dev`
+---
 
-## Tech Stack & Rationale
-*   **Frontend:** React (Vite). Chosen for its lightning-fast HMR and modern component-based architecture.
-*   **Styling:** Custom Vanilla CSS. Chosen to demonstrate a deep understanding of CSS Grid, Flexbox, custom variables, and modern glassmorphism techniques without relying on utility classes or component libraries, proving I can build premium web experiences from scratch.
-*   **Backend:** Django & Django REST Framework. Chosen for its robust, secure-by-default architecture, allowing rapid API routing. 
-*   **AI Engine:** To adhere to the strict "No Cost" rule of this challenge, the AI is a custom-built semantic parser in Django rather than a paid LLM. It flawlessly intercepts natural language requests and returns structured commands that the React frontend uses to act on the DOM.
+## Overview
 
-## AI Query Types Supported
-Our AI assistant seamlessly handles the following 6 distinct queries:
-1. **Filtering:** *"Show me SUVs under 20 lakhs"* 
-   - Action: Intercepts the request, highlights the model section, and dynamically filters the React state to only render vehicles matching the criteria.
-2. **Comparison:** *"Compare your top two models"* 
-   - Action: Smooth-scrolls to the Specifications table and highlights the top two models side-by-side.
-3. **Pre-filling Form:** *"I'd like to book a test drive for your flagship model this Saturday in Kochi"* 
-   - Action: Captures intention, date, and location, scrolling instantly to the booking form and populating the respective fields automatically.
-4. **Recommendation:** *"Which car is best for a family of five?"*
-Our AI assistant seamlessly handles the following 8 distinct queries:
+DriveAI — Aether Motors is an AI-powered automotive experience platform that transforms how users explore vehicles.
 
-### 🤖 Nova AI: 8 Advanced Query Types
-The platform features a multi-modal assistant capable of executing 8 distinct architectural actions:
-1.  **Categorical Filtering**: "Show me SUVs under 70 Lakhs."
-2.  **Head-to-Head Comparison**: "Compare the Phantom and the Nexus."
-3.  **Cross-Sectional Navigation**: "Show me all your cars."
-4.  **Transaction Automation**: "Book a test drive for the Titan in Bangalore."
-5.  **Inventory Analytics**: "Can you tell me the perfomance of Aether Phantom?"
-6.  **Spotlight Mode**: "Recommend the best car for off-roading."
-7.  **Financial Localization**: "Switch all pricing to USD."
+Instead of navigating through traditional UI elements, users interact with the system using natural language. The AI dynamically controls the interface in real time — filtering data, navigating sections, comparing models, and automating actions.
 
-## What I'd Build Next (With 1 More Week)
-I would integrate a WebGL (Three.js) interactive 3D model of the flagship car in the hero section, allowing the AI to actually rotate or change the paint color of the 3D model based on conversational prompts. I'd also swap the Simulated AI parser for an open-source LLM (like Llama-3) hosted via Groq for deeper conversational memory.
+This project demonstrates how conversational interfaces can directly manipulate frontend state and UI behavior without relying on traditional input flows.
+
+---
+
+## Local Setup
+
+Run the project using two terminals:
+
+### Backend (Django + DRF)
+
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+pip install django djangorestframework django-cors-headers
+python manage.py migrate
+python manage.py runserver
+```
+
+---
+
+### Frontend (React + Vite)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## Tech Stack & Architecture
+
+### Frontend — React (Vite)
+
+* Fast development with Hot Module Replacement (HMR)
+* Component-driven architecture
+* Real-time UI updates based on AI responses
+
+### Styling — Vanilla CSS
+
+* Built without UI frameworks
+* Uses Flexbox, Grid, and custom variables
+* Implements modern UI techniques
+
+### Backend — Django + Django REST Framework
+
+* RESTful API architecture
+* Secure and scalable backend
+* Handles AI parsing and request routing
+
+### AI Engine — Google Gemini
+
+* Powered by the Gemini 2.5 Flash model for advanced intent detection
+* Performs zero-shot classification to convert natural language into structured JSON commands
+* Orchestrates real-time frontend behavior and state manipulation via dynamic API responses
+
+---
+
+## Nova AI — Core Capabilities
+
+The system maps user intent into 7 structured action types, enabling direct UI manipulation:
+
+### 1. Categorical Filtering
+
+Example:
+"Show me SUVs under 70 Lakhs"
+Filters vehicles dynamically based on price and category
+
+---
+
+### 2. Head-to-Head Comparison
+
+Example:
+"Compare the Phantom and the Nexus"
+Highlights selected models side-by-side
+
+---
+
+### 3. Cross-Sectional Navigation
+
+Example:
+"Show me all your cars"
+Scrolls to relevant UI sections
+
+---
+
+### 4. Transaction & Form Automation
+
+Example:
+"Book a test drive for the Titan this Saturday in Kochi"
+Extracts intent, vehicle, date, and location, then navigates and auto-fills the form
+
+---
+
+### 5. Inventory Analytics
+
+Example:
+"Tell me the performance of Aether Phantom"
+Displays specifications and performance insights
+
+---
+
+### 6. Recommendation Engine
+
+Example:
+"Best car for off-roading?"
+Suggests the most suitable vehicle based on user needs
+
+---
+
+### 7. Financial Localization
+
+Example:
+"Switch pricing to USD"
+Dynamically converts and updates all pricing
+
+---
+
+## Key Features
+
+* AI-driven UI interaction without traditional navigation
+* Real-time DOM updates via structured AI responses
+* Smart filtering, comparison, and recommendations
+* Automated form filling using natural language
+* Clean and responsive UI
+* Full frontend and backend integration
+
+---
+
+## System Design (High-Level)
+
+User Input → Django API (Gemini 2.5 Flash) → Structured JSON Action → React State → UI Update
+
+This architecture ensures:
+
+* Clear separation of concerns
+* Scalable AI logic
+* Predictable frontend behavior
+
+---
+
+## Future Enhancements
+
+With more time, the platform can be extended to:
+
+* Integrate Three.js for interactive 3D car visualization
+* Enable AI-controlled car rotation and color customization
+* Implement multi-turn conversational memory for deep context handling
+* Add voice-controlled navigation features for a truly hands-free experience
+
+---
+
+## Author
+
+Shahin
+Aspiring Full Stack Developer (React + Django)
+
+---
