@@ -45,7 +45,7 @@ def chat_assistant(request):
     PRIORITY RULES (FOLLOW STRICTLY):
     1. Navigation/Fleet: If user says "show cars", "fleet", "inventory", or "go to [X]" -> action: 'NAVIGATE', section: 'models' (or [X]).
     2. Specific Car/Recs: If asked about a specific car (e.g. "show phantom") or recommendation (e.g. "best for family") -> action: 'SPOTLIGHT', payload: {{"car_name": "Full Name"}}, section: 'models'.
-    3. Currency: If asked to switch to Dollars/USD or INR -> action: 'CURRENCY', payload: {{"currency": "USD" or "INR"}}, section: 'hero'.
+    3. Currency: If asked to switch to Dollars/USD or INR -> action: 'CURRENCY', payload: {{"currency": "USD" or "INR"}}, section: 'models'.
     4. Comparison: If 2+ cars -> action: 'COMPARE', payload: {{"models": [...]}}, section: 'compare'.
     5. Booking: If reserve/test drive -> action: 'PREFILL', payload: {{...}}, section: 'book'.
 

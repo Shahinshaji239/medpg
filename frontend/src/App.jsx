@@ -110,7 +110,11 @@ function App() {
       setTheme(payload.theme)
     }
 
-    const targetSection = section || (payload && payload.section)
+    let targetSection = section || (payload && payload.section)
+    if ((action === 'CHANGE_CURRENCY' || action === 'CURRENCY') && !targetSection) {
+      targetSection = 'models'
+    }
+
     if (targetSection) {
       setTimeout(() => {
         const el = document.getElementById(targetSection)

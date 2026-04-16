@@ -76,7 +76,7 @@ The system maps user intent into 7 structured action types, enabling direct UI m
 ### 1. Categorical Filtering
 
 Example:
-"Show me SUVs under 70 Lakhs"
+"Show me SUVs under 90 Lakhs"
 Filters vehicles dynamically based on price and category
 
 ---
