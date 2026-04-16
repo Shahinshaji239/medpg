@@ -3,7 +3,7 @@ import axios from 'axios'
 import './index.css'
 import { PlusCircle, Zap, Shield, BatteryCharging, Send, Menu, Play, ArrowRight, Sparkles, Mic, MicOff, Volume2, VolumeX, X } from 'lucide-react'
 
-const API_URL = 'https://medpg.onrender.com/api'
+const API_URL = 'http://localhost:8000/api'
 
 function App() {
   const [theme, setTheme] = useState('dark')
