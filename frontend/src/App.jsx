@@ -52,37 +52,70 @@ function App() {
   const handleAiCommand = (data) => {
     const { action, payload, section } = data
 
+    const findCar = (name) => {
+      const s = (name || '').trim().toLowerCase()
+      if (!s) return null
+      // 1. Exact match
+      let match = cars.find(c => c.name.toLowerCase() === s)
+      if (match) return match
+      // 2. Contains match
+      match = cars.find(c => c.name.toLowerCase().includes(s) || s.includes(c.name.toLowerCase()))
+      if (match) return match
+      // 3. Word-by-word match (best for "the nexus")
+      const words = s.split(' ')
+      for (const word of words) {
+        if (word.length < 3) continue
+        match = cars.find(c => c.name.toLowerCase().includes(word))
+        if (match) return match
+      }
+      return null
+    }
+
     if (action !== 'FILTER') setActiveFilter(null)
-    if (action !== 'HIGHLIGHT_CAR') setHighlightedCar(null)
+    if (action !== 'HIGHLIGHT_CAR' && action !== 'SPOTLIGHT') setHighlightedCar(null)
 
     if (action === 'FILTER') {
-      setActiveFilter(payload)
+      let filterPayload = { ...payload }
+      if (filterPayload.max_price) {
+        // Ensure it's a clean number, but keep it in full INR (e.g. 5000000)
+        let price = String(filterPayload.max_price).replace(/[^0-9]/g, '')
+        let numPrice = parseInt(price)
+        // If they sent just "50", convert it to the full 50,000,000
+        if (numPrice < 1000) numPrice = numPrice * 100000
+        filterPayload.max_price = numPrice
+      }
+      setActiveFilter(filterPayload)
     } else if (action === 'COMPARE') {
       if (payload.models && payload.models.length >= 2) {
-        setCompareModel1(payload.models[0])
-        setCompareModel2(payload.models[1])
+        const m1 = findCar(payload.models[0])
+        const m2 = findCar(payload.models[1])
+        if (m1) setCompareModel1(m1.name)
+        if (m2) setCompareModel2(m2.name)
       }
-    } else if (action === 'PREFILL_FORM') {
-      if (payload.model) setBookModel(payload.model)
-      if (payload.city) setBookCity(payload.city)
-      if (payload.date) setBookDate(payload.date)
-    } else if (action === 'HIGHLIGHT_CAR') {
-      setHighlightedCar(payload.car_name)
-      const specificCar = cars.find(c => c.name === payload.car_name)
-      if (specificCar) setHeroImage(specificCar.image_url)
-    } else if (action === 'CHANGE_CURRENCY') {
+    } else if (action === 'PREFILL_FORM' || action === 'PREFILL') {
+      const modelName = payload.model || payload.car || payload.car_model
+      const m = findCar(modelName)
+      if (m) setBookModel(m.name)
+      if (payload.city || payload.location) setBookCity(payload.city || payload.location)
+      if (payload.date && payload.date !== 'latest') setBookDate(payload.date)
+    } else if (action === 'HIGHLIGHT_CAR' || action === 'SPOTLIGHT') {
+      const m = findCar(payload.car_name)
+      if (m) {
+        setHighlightedCar(m.name)
+        setHeroImage(m.image_url)
+      }
+    } else if (action === 'CHANGE_CURRENCY' || action === 'CURRENCY') {
       setCurrency(payload.currency)
     } else if (action === 'CHANGE_THEME') {
       setTheme(payload.theme)
     }
 
-    if (section) {
+    const targetSection = section || (payload && payload.section)
+    if (targetSection) {
       setTimeout(() => {
-        const el = document.getElementById(section)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' })
-        }
-      }, 100)
+        const el = document.getElementById(targetSection)
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 300)
     }
   }
 

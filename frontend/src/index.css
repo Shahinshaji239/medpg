@@ -597,8 +597,19 @@ section {
 }
 
 .car-card.highlight {
-  background: #000;
-  color: #fff;
+  border-color: var(--primary-container);
+  box-shadow: 0 0 25px var(--primary-container);
+  transform: scale(1.02);
+  animation: pulse-glow 1.5s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  from { box-shadow: 0 0 10px var(--primary-container); }
+  to { box-shadow: 0 0 30px var(--primary-container); }
+}
+
+.car-card.highlight h3, .car-card.highlight .car-price {
+  color: var(--primary-container);
 }
 
 .car-img {

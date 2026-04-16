@@ -34,14 +34,13 @@ Our AI assistant seamlessly handles the following 8 distinct queries:
 
 ### 🤖 Nova AI: 8 Advanced Query Types
 The platform features a multi-modal assistant capable of executing 8 distinct architectural actions:
-1.  **Categorical Filtering**: "Show me SUVs under 60 Lakhs."
+1.  **Categorical Filtering**: "Show me SUVs under 70 Lakhs."
 2.  **Head-to-Head Comparison**: "Compare the Phantom and the Nexus."
-3.  **Cross-Sectional Navigation**: "Take me to the engineering details."
+3.  **Cross-Sectional Navigation**: "Show me all your cars."
 4.  **Transaction Automation**: "Book a test drive for the Titan in Bangalore."
-5.  **Inventory Analytics**: "How many performance sedans are currently available?"
+5.  **Inventory Analytics**: "Can you tell me the perfomance of Aether Phantom?"
 6.  **Spotlight Mode**: "Recommend the best car for off-roading."
 7.  **Financial Localization**: "Switch all pricing to USD."
-8.  **Atmospheric Control**: "I prefer a light/dark interface."
 
 ## What I'd Build Next (With 1 More Week)
 I would integrate a WebGL (Three.js) interactive 3D model of the flagship car in the hero section, allowing the AI to actually rotate or change the paint color of the 3D model based on conversational prompts. I'd also swap the Simulated AI parser for an open-source LLM (like Llama-3) hosted via Groq for deeper conversational memory.

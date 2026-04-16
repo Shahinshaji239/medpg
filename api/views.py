@@ -38,42 +38,36 @@ def chat_assistant(request):
     for idx, car in enumerate(cars):
         cars_context += f"{idx}. {car.name} ({car.type}): Price ₹{car.price_inr}. Range: {car.range_km}km. Top Speed: {car.top_speed}km/h. 0-100 km/h in {car.acceleration_0_100}s. Description: {car.description}\n"
 
-    SYSTEM_PROMPT = f"""
+    prompt = f"""
     You are Nova, the Aether Motors AI Assistant. Today is {current_day}, {current_date_str}.
-    You control the UI for a premium car dealership. You MUST reply with a JSON object containing 'reply' (string) and 'action' (string) + 'payload' (object).
-    
-    SUPPORTED QUERY TYPES (Exactly 8):
-    1. FILTER: Search. (Example: "SUVs under 20 Lakhs" -> action: 'FILTER', payload: {{type: 'SUV', max_price: 2000000}})
-    2. COMPARE: Side-by-side. (Example: "Compare X and Y" -> action: 'COMPARE', payload: {{models: ['X', 'Y']}})
-    3. NAVIGATE: Section scrolls. (Valid sections: 'models', 'compare', 'engineering', 'book', 'contact')
-    4. PREFILL: Form automation. (Example: "Book for Phantom in Kochi" -> action: 'PREFILL', payload: {{model: 'Phantom', city: 'Kochi', date: 'latest'}})
-    5. SPOTLIGHT: Visual focus. (Example: "Focus on Phantom" -> action: 'SPOTLIGHT', payload: {{car_name: 'Aether Phantom'}})
-    6. INVENTORY: Count stock. (Example: "How many cars?" -> action: 'INVENTORY', payload: {{check: 'total'}})
-    7. CURRENCY: Price toggle. (Example: "Show in USD" -> action: 'CURRENCY', payload: {{currency: 'USD'}})
-    8. ANALYZE: Technical deep dive. (Example: "Which car has most range?" -> action: 'ANALYZE', payload: {{metric: 'range_km'}})
+    You MUST reply with a JSON object containing 'reply', 'action', 'payload', and 'section'.
+
+    PRIORITY RULES:
+    1. If user asks to compare 2+ cars -> action: 'COMPARE', payload: {{"models": ["Aether Phantom", "Aether Horizon"]}}, section: 'compare'.
+    2. If user asks about 1 specific car -> action: 'SPOTLIGHT', payload: {{"car_name": "Aether Phantom"}}, section: 'models'.
+    3. If user asks to book/reserve -> action: 'PREFILL', payload: {{"model": "Aether Nexus", "city": "Kochi", "date": "2026-04-19"}}, section: 'book'.
+    4. General fleet/prices -> action: 'FILTER', payload: {{...}}, section: 'models'.
 
     RULES:
-    - If user asks for "engineering" or "technical specs", set action: 'NAVIGATE' and section: 'engineering'.
-    - If user asks for SUVs under 20 Lakhs, convert to action: 'FILTER' and max_price: 2000000.
-    """
+    - Dates MUST be in YYYY-MM-DD format (e.g., 2026-04-19).
+    - Use exact car names from inventory for models.
 
-    prompt = f"""
-    {SYSTEM_PROMPT}
-
-    Current Inventory:
+    Inventory:
     {cars_context}
-    
-    User Inquiry: {user_message}
+
+    User: {user_message}
     """
     
     try:
         response = model.generate_content(prompt)
         json_response = json.loads(response.text)
+        print(f"--- AI COMMAND: {json_response['action']} ---") # DEBUG LOG
         return Response(json_response)
     except Exception as e:
+        print(f"--- AI ERROR: {str(e)} ---")
         return Response({
             "action": "NONE",
             "payload": {},
-            "reply": "System processing anomaly. Please retry your request.",
-            "section": ""
+            "reply": f"Internal mapping error: {str(e)}",
+            "section": "hero"
         })
