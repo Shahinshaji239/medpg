@@ -38,32 +38,32 @@ def chat_assistant(request):
     for idx, car in enumerate(cars):
         cars_context += f"{idx}. {car.name} ({car.type}): Price ₹{car.price_inr}. Range: {car.range_km}km. Top Speed: {car.top_speed}km/h. 0-100 km/h in {car.acceleration_0_100}s. Description: {car.description}\n"
 
-    prompt = f"""
-    You are the AI assistant for Aether Motors, a premium car dealership.
-    Today is {current_day}, {current_date_str}. Use this to resolve relative dates (e.g., "this Saturday", "tomorrow").
-
-    Analyze the user's message and determine the correct UI action to take.
-    Return a JSON response exactly in this format WITHOUT markdown blocks:
-    {{
-        "action": "<ACTION_NAME>",
-        "payload": <PAYLOAD_OBJECT>,
-        "reply": "<Your conversational reply to the user using the details around our cars>",
-        "section": "<Section ID to scroll to>"
-    }}
+    SYSTEM_PROMPT = f"""
+    You are Nova, the Aether Motors AI Assistant. Today is {current_day}, {current_date_str}.
+    You control the UI for a premium car dealership. You MUST reply with a JSON object containing 'reply' (string) and 'action' (string) + 'payload' (object).
     
+    SUPPORTED QUERY TYPES (Exactly 8):
+    1. FILTER: Search. (Example: "SUVs under 20 Lakhs" -> action: 'FILTER', payload: {{type: 'SUV', max_price: 2000000}})
+    2. COMPARE: Side-by-side. (Example: "Compare X and Y" -> action: 'COMPARE', payload: {{models: ['X', 'Y']}})
+    3. NAVIGATE: Section scrolls. (Valid sections: 'models', 'compare', 'engineering', 'book', 'contact')
+    4. PREFILL: Form automation. (Example: "Book for Phantom in Kochi" -> action: 'PREFILL', payload: {{model: 'Phantom', city: 'Kochi', date: 'latest'}})
+    5. SPOTLIGHT: Visual focus. (Example: "Focus on Phantom" -> action: 'SPOTLIGHT', payload: {{car_name: 'Aether Phantom'}})
+    6. INVENTORY: Count stock. (Example: "How many cars?" -> action: 'INVENTORY', payload: {{check: 'total'}})
+    7. CURRENCY: Price toggle. (Example: "Show in USD" -> action: 'CURRENCY', payload: {{currency: 'USD'}})
+    8. ANALYZE: Technical deep dive. (Example: "Which car has most range?" -> action: 'ANALYZE', payload: {{metric: 'range_km'}})
+
+    RULES:
+    - If user asks for "engineering" or "technical specs", set action: 'NAVIGATE' and section: 'engineering'.
+    - If user asks for SUVs under 20 Lakhs, convert to action: 'FILTER' and max_price: 2000000.
+    """
+
+    prompt = f"""
+    {SYSTEM_PROMPT}
+
     Current Inventory:
     {cars_context}
     
-    Possible Actions:
-    1. FILTER: {{"type": "SUV", "max_price": 2000000}}. Section: "models".
-    2. COMPARE: {{"models": ["<car_name_1>", "<car_name_2>"]}}. Section: "compare".
-    3. PREFILL_FORM: Extract city and date (YYYY-MM-DD). Payload: {{"model": "<Selected_model_name>", "city": "<city>", "date": "<date>"}}. Section: "book".
-    4. HIGHLIGHT_CAR: Recommend a car. Payload: {{"car_name": "<car_name>"}}. Section: "models".
-    5. CHANGE_CURRENCY: {{"currency": "USD"}}. Section: "pricing".
-    6. CHANGE_THEME: {{"theme": "light" | "dark"}}. Section: "hero".
-    7. NONE: Payload: {{}}. Section: "".
-       
-    User: {user_message}
+    User Inquiry: {user_message}
     """
     
     try:
