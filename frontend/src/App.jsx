@@ -138,18 +138,18 @@ function App() {
                   <tr>
                     <th>Feature</th>
                     <th>
-                      <select 
+                      <select
                         className="manual-compare-select"
-                        value={compareModel1} 
+                        value={compareModel1}
                         onChange={(e) => setCompareModel1(e.target.value)}
                       >
                         {cars.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
                       </select>
                     </th>
                     <th>
-                      <select 
+                      <select
                         className="manual-compare-select"
-                        value={compareModel2} 
+                        value={compareModel2}
                         onChange={(e) => setCompareModel2(e.target.value)}
                       >
                         {cars.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
@@ -324,9 +324,9 @@ function Navbar({ theme }) {
         >
           Book Test Drive
         </button>
-        <Menu 
-          className="mobile-menu-toggle" 
-          size={24} 
+        <Menu
+          className="mobile-menu-toggle"
+          size={24}
           color="var(--text-main)"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         />

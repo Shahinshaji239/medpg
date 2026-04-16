@@ -30,11 +30,18 @@ Our AI assistant seamlessly handles the following 6 distinct queries:
 3. **Pre-filling Form:** *"I'd like to book a test drive for your flagship model this Saturday in Kochi"* 
    - Action: Captures intention, date, and location, scrolling instantly to the booking form and populating the respective fields automatically.
 4. **Recommendation:** *"Which car is best for a family of five?"*
-   - Action: Auto-scrolls to the recommended model in the fleet grid and executes a custom pulse-glow CSS animation to draw the user's eye, while providing reasoning in chat.
-5. **Currency Swap:** *"Show me prices in dollars"* 
-   - Action: Globally triggers a React state change, calculating and updating all DOM prices from INR to USD instantly.
-6. **Theme Control:** *"Switch to light mode"* / *"Switch to dark mode"*
-   - Action: Mutates the `:root` data-theme, swapping CSS custom properties for an instantaneous full-page theme transition.
+Our AI assistant seamlessly handles the following 8 distinct queries:
+
+### 🤖 Nova AI: 8 Advanced Query Types
+The platform features a multi-modal assistant capable of executing 8 distinct architectural actions:
+1.  **Categorical Filtering**: "Show me SUVs under 60 Lakhs."
+2.  **Head-to-Head Comparison**: "Compare the Phantom and the Nexus."
+3.  **Cross-Sectional Navigation**: "Take me to the engineering details."
+4.  **Transaction Automation**: "Book a test drive for the Titan in Bangalore."
+5.  **Inventory Analytics**: "How many performance sedans are currently available?"
+6.  **Spotlight Mode**: "Recommend the best car for off-roading."
+7.  **Financial Localization**: "Switch all pricing to USD."
+8.  **Atmospheric Control**: "I prefer a light/dark interface."
 
 ## What I'd Build Next (With 1 More Week)
 I would integrate a WebGL (Three.js) interactive 3D model of the flagship car in the hero section, allowing the AI to actually rotate or change the paint color of the 3D model based on conversational prompts. I'd also swap the Simulated AI parser for an open-source LLM (like Llama-3) hosted via Groq for deeper conversational memory.
